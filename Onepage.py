@@ -6,6 +6,7 @@
 # Mandar o email para diretoria
 
 import pandas as pd
+import time
 
 emails = pd.read_excel(r'Bases de Dados\Emails.xlsx')
 lojas = pd.read_csv(r'Bases de Dados\Lojas.csv', encoding='latin1', sep=';')
@@ -19,7 +20,13 @@ vendas = vendas.merge(lojas, on='ID Loja')
 dicionario_lojas = {}
 for loja in lojas['Loja']:
     dicionario_lojas[loja] = vendas.loc[vendas['Loja'] == loja, :]
+# print(dicionario_lojas['Shopping Recife'])
 
-print(dicionario_lojas['Shopping Recife'])
+    # Definir dia do indicador
 
-# Definir dia do indicador
+
+def dia_indicador():
+    dia_indicador = vendas['Data'].max()
+    dia_formatado = dia_indicador.strftime('%d/%m')
+    return dia_formatado
+# print(dia_indicador())
