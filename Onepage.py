@@ -7,6 +7,7 @@
 
 import pandas as pd
 import time
+import pathlib
 
 emails = pd.read_excel(r'Bases de Dados\Emails.xlsx')
 lojas = pd.read_csv(r'Bases de Dados\Lojas.csv', encoding='latin1', sep=';')
@@ -31,4 +32,9 @@ def dia_indicador():
     return dia_formatado
 # print(dia_indicador())
 
-    #começar a criar o backup diaio de quando fazer o resumo na onepage
+    #começar a criar o backup diario de quando fazer o resumo na onepage
+caminho_backup = pathlib.Path(r'Backup Arquivos Lojas')
+arquivos_existentes = caminho_backup.iterdir()   #percorre a lista de arquivos ja existentes
+
+lista_shoppings = [shopping.name for shopping in arquivos_existentes] #criando que contem todos shoppings ja existentes
+#print(lista_shoppings)
