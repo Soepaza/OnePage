@@ -12,11 +12,11 @@ emails = pd.read_excel(r'Bases de Dados\Emails.xlsx')
 lojas = pd.read_csv(r'Bases de Dados\Lojas.csv', encoding='latin1', sep=';')
 vendas = pd.read_excel(r'Bases de Dados\Vendas.xlsx')
 
-# incluir nome da loja em vendas
+    # incluir nome da loja em vendas
 vendas = vendas.merge(lojas, on='ID Loja')
 # print(vendas)
 
-# Criando uma tabela para cada loja, colocando dentro de um dicionario usando o loc.
+    # Criando uma tabela para cada loja, colocando dentro de um dicionario usando o loc.
 dicionario_lojas = {}
 for loja in lojas['Loja']:
     dicionario_lojas[loja] = vendas.loc[vendas['Loja'] == loja, :]
@@ -30,3 +30,5 @@ def dia_indicador():
     dia_formatado = dia_indicador.strftime('%d/%m')
     return dia_formatado
 # print(dia_indicador())
+
+    #começar a criar o backup diaio de quando fazer o resumo na onepage
