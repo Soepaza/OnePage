@@ -17,8 +17,8 @@ for arquivo_separado in lojas['Loja']:
 
 
         #atualizar a data todo dia, para enviar o indicador diario no email.
-def data_atualizada():
+def data_atualizada_indicador():
     dia_enviar_no_email = vendas['Data'].max()
     return dia_enviar_no_email
 
-print(data_atualizada())
+print(data_atualizada_indicador())
