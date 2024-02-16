@@ -13,11 +13,11 @@ emails = pd.read_excel(r'Bases de Dados\Emails.xlsx')
 lojas = pd.read_csv(r'Bases de Dados\Lojas.csv', encoding='latin1', sep=';')
 vendas = pd.read_excel(r'Bases de Dados\Vendas.xlsx')
 
-    # incluir nome da loja em vendas
+# incluir nome da loja em vendas
 vendas = vendas.merge(lojas, on='ID Loja')
 # print(vendas)
 
-    # Criando uma tabela para cada loja, colocando dentro de um dicionario usando o loc.
+# Criando uma tabela para cada loja, colocando dentro de um dicionario usando o loc.
 dicionario_lojas = {}
 for loja in lojas['Loja']:
     dicionario_lojas[loja] = vendas.loc[vendas['Loja'] == loja, :]
@@ -32,9 +32,11 @@ def dia_indicador():
     return dia_formatado
 # print(dia_indicador())
 
-    #começar a criar o backup diario de quando fazer o resumo na onepage
+    # começar a criar o backup diario de quando fazer o resumo na onepage
 caminho_backup = pathlib.Path(r'Backup Arquivos Lojas')
-arquivos_existentes = caminho_backup.iterdir()   #percorre a lista de arquivos ja existentes
+# percorre a lista de arquivos ja existentes
+arquivos_existentes = caminho_backup.iterdir()
 
-lista_shoppings = [shopping.name for shopping in arquivos_existentes] #criando que contem todos shoppings ja existentes
-#print(lista_shoppings)
+# criando que contem todos shoppings ja existentes
+lista_shoppings = [shopping.name for shopping in arquivos_existentes]
+# print(lista_shoppings)
