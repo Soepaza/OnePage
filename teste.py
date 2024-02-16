@@ -28,7 +28,6 @@ def data_atualizada_indicador():
 #print(data_atualizada_indicador())
 
     # criar a pasta que vai receber os backups das lojas dentro do programa.
-
 caminho_backup = pathlib.Path(r'Backup Arquivos Lojas')
 
 shoppings_existentes_napasta = caminho_backup.iterdir()   #iterdir retorna a lista de shoppings existentes
@@ -37,6 +36,9 @@ shoppings_existentes_napasta = caminho_backup.iterdir()   #iterdir retorna a lis
 lista_shoppings = []
 for shopping in shoppings_existentes_napasta:
     lista_shoppings.append(shopping.name)
+#print(lista_shoppings)
 
-print(lista_shoppings)
-
+for shopping in dicionario_das_lojas:
+    if shopping not in shoppings_existentes_napasta:
+        nova_pasta = caminho_backup / shopping
+        nova_pasta.mkdir()
