@@ -28,6 +28,7 @@ def data_atualizada_indicador():
 #print(data_atualizada_indicador())
 
     # criar a pasta que vai receber os backups das lojas dentro do programa.
+dia_indicador = vendas['Loja'].min()
 caminho_backup = pathlib.Path(r'Backup Arquivos Lojas')
 
 shoppings_existentes_napasta = caminho_backup.iterdir()   #iterdir retorna a lista de shoppings existentes
@@ -39,6 +40,18 @@ for shopping in shoppings_existentes_napasta:
 #print(lista_shoppings)
 
 for shopping in dicionario_das_lojas:
-    if shopping not in shoppings_existentes_napasta:
-        nova_pasta = caminho_backup / shopping
+    shopping_nome = shopping.strip()
+    nova_pasta = caminho_backup / shopping_nome
+    if shopping not in lista_shoppings and not nova_pasta.exists():
         nova_pasta.mkdir()
+
+    #Cria o local do arquivo para salvar o backup diario
+    #local_arquivo_salvo = "C:\Users\Home\...16_02_NomeLoja.xlsx"
+
+
+    nome_shopping = "{}_{}_{}.xlsx".format(data_atualizada_indicador().month, data_atualizada_indicador().day, shopping)
+    local_arquivo_salvo = caminho_backup / shopping / nome_shopping
+
+    dicionario_das_lojas[shopping].to_excel(local_arquivo_salvo, index=False)
+
+
