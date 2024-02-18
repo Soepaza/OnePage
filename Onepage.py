@@ -24,12 +24,7 @@ for loja in lojas['Loja']:
 # print(dicionario_lojas['Shopping Recife'])
 
     # Definir dia do indicador
-
-
-def dia_indicador():
-    dia_indicador = vendas['Data'].max()
-    dia_formatado = dia_indicador.strftime('%d/%m')
-    return dia_formatado
+dia_indicador = vendas['Data'].max()
 # print(dia_indicador())
 
     # começar a criar o backup diario de quando fazer o resumo na onepage
@@ -37,6 +32,26 @@ caminho_backup = pathlib.Path(r'Backup Arquivos Lojas')
 # percorre a lista de arquivos ja existentes
 arquivos_existentes = caminho_backup.iterdir()
 
-# criando que contem todos shoppings ja existentes
-lista_shoppings = [shopping.name for shopping in arquivos_existentes]
+    # criando lista que contem todos shoppings ja existentes
+lista_shoppings = [shopping.name.strip() for shopping in arquivos_existentes]
 # print(lista_shoppings)
+
+    #criando a pasta do shopping com a lista de shoppings existes(ou nao existentes)
+for loja in dicionario_lojas:
+    loja_formatada = loja.strip()
+    if loja not in lista_shoppings:
+        nova_pasta = caminho_backup / loja_formatada
+        nova_pasta.mkdir()
+
+        #criar o arquivo (#Onepage) dentro da pasta do shopping.
+    nome_Onepage = "{}_{}_{}.xlsx".format(dia_indicador.month, dia_indicador.day, loja_formatada)
+    local_arquivo = caminho_backup / loja_formatada / nome_Onepage #"C:/Users/Home/../17_02_Loja.xlsx"
+        #mandar para o framework do python (dicionario)
+    dicionario_lojas[loja].to_excel(local_arquivo)
+
+    #calcular indicador 1 (faturamento)
+loja = 'Norte Shopping'
+vendas_loja = dicionario_lojas[loja]
+vendas_loja_dia = vendas_loja.loc[vendas_loja['Data']==dia_indicador,:]
+faturamento_ano = vendas_loja['Valor Final'].sum()
+faturamento_dia = vendas_loja_dia['Valor Final'].sum()
