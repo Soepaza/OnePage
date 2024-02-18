@@ -54,4 +54,12 @@ for shopping in dicionario_das_lojas:
 
     dicionario_das_lojas[shopping].to_excel(local_arquivo_salvo, index=False)
 
+    #calcular faturamento de cada shopping
+
+loja = 'Shopping Center Leste Aricanduva'
+vendas_shopping = dicionario_das_lojas[loja]
+vendas_shopping_dia = vendas_shopping.loc[vendas_shopping['Data']== dia_indicador,:]
+faturamento_ano = vendas_shopping['Valor Final'].sum()
+faturamento_dia = vendas_shopping_dia['Valor Final'].sum()
+
 
