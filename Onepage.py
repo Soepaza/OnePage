@@ -39,15 +39,18 @@ lista_shoppings = [shopping.name.strip() for shopping in arquivos_existentes]
     #criando a pasta do shopping com a lista de shoppings existes(ou nao existentes)
 for loja in dicionario_lojas:
     loja_formatada = loja.strip()
-    if loja not in lista_shoppings:
-        nova_pasta = caminho_backup / loja_formatada
-        nova_pasta.mkdir()
+    try:
+        if loja not in lista_shoppings:
+            nova_pasta = caminho_backup / loja_formatada
+            nova_pasta.mkdir()
 
-        #criar o arquivo (#Onepage) dentro da pasta do shopping.
-    nome_Onepage = "{}_{}_{}.xlsx".format(dia_indicador.month, dia_indicador.day, loja_formatada)
-    local_arquivo = caminho_backup / loja_formatada / nome_Onepage #"C:/Users/Home/../17_02_Loja.xlsx"
-        #mandar para o framework do python (dicionario)
-    dicionario_lojas[loja].to_excel(local_arquivo)
+            #criar o arquivo (#Onepage) dentro da pasta do shopping.
+        nome_Onepage = "{}_{}_{}.xlsx".format(dia_indicador.month, dia_indicador.day, loja_formatada)
+        local_arquivo = caminho_backup / loja_formatada / nome_Onepage #"C:/Users/Home/../17_02_Loja.xlsx"
+            #mandar para o framework do python (dicionario)
+        dicionario_lojas[loja].to_excel(local_arquivo)
+    except FileExistsError:
+        print('Continuando...')
 
     #calcular indicador 1 (faturamento)
 loja = 'Norte Shopping'
@@ -55,3 +58,15 @@ vendas_loja = dicionario_lojas[loja]
 vendas_loja_dia = vendas_loja.loc[vendas_loja['Data']==dia_indicador,:]
 faturamento_ano = vendas_loja['Valor Final'].sum()
 faturamento_dia = vendas_loja_dia['Valor Final'].sum()
+
+    #calcular diversidade de produtos
+qtd_produtos_ano = len(vendas_loja['Produto'].unique())
+
+qtd_produtos_ano_dia = len(vendas_loja_dia['Produto'].unique())
+
+    #calcular ticket medio
+valor_venda = vendas_loja.groupby['Código Venda'].sum()
+ticket_medio_ano = valor_venda['Valor Final'].mean()
+
+valor_venda_dia = vendas_loja_dia.groupby['Código Venda'].sum()
+ticket_medio_dia = vendas_loja_dia['Valor Final'].mean()
