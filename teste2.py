@@ -30,3 +30,25 @@ for loja in dicionario_lojas:
     nome_arquivo = '{}_{}_{}.xlsx'.format(dia_indicador.month, dia_indicador.day, loja_formatada)
     local_arquivo = caminho_backup / loja_formatada / nome_arquivo
     dicionario_lojas[loja].to_excel(local_arquivo)
+
+    #mandar o arquivo para o shopping
+arquivo_shopp = 'Norte Shopping'
+vendas_do_shopping = dicionario_lojas[arquivo_shopp]
+vendas_do_shopping_dia = vendas_do_shopping.loc[vendas_do_shopping['Data'] == dia_indicador,:]
+
+faturamento_total = vendas_do_shopping['Valor Final'].sum()
+print(faturamento_total)
+
+faturamento_total_dia = vendas_do_shopping_dia['Valor Final'].sum()
+print(faturamento_total_dia)
+
+diversidade_produtos_ano =len(vendas_do_shopping['Produto'].unique())
+diversidade_produtos_dia = len(vendas_do_shopping_dia['Produto'].unique())
+
+
+    #calcular ticket medio
+valor_venda = vendas_loja.groupby['Código Venda'].sum()
+ticket_medio_ano = valor_venda['Valor Final'].mean()
+
+valor_venda_dia = vendas_loja_dia.groupby['Código Venda'].sum()
+ticket_medio_dia = vendas_loja_dia['Valor Final'].mean()
