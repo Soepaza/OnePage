@@ -47,8 +47,8 @@ diversidade_produtos_dia = len(vendas_do_shopping_dia['Produto'].unique())
 
 
     #calcular ticket medio
-valor_venda = vendas_loja.groupby['Código Venda'].sum()
+valor_venda = vendas_do_shopping.groupby['Código Venda'].sum()
 ticket_medio_ano = valor_venda['Valor Final'].mean()
 
-valor_venda_dia = vendas_loja_dia.groupby['Código Venda'].sum()
+valor_venda_dia = vendas_do_shopping_dia.groupby['Código Venda'].sum()
 ticket_medio_dia = vendas_loja_dia['Valor Final'].mean()
