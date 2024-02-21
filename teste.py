@@ -25,19 +25,20 @@ def data_atualizada_indicador():
     return dia_enviar_no_email
 
 
-#print(data_atualizada_indicador())
+# print(data_atualizada_indicador())
 
     # criar a pasta que vai receber os backups das lojas dentro do programa.
 dia_indicador = vendas['Loja'].min()
 caminho_backup = pathlib.Path(r'Backup Arquivos Lojas')
 
-shoppings_existentes_napasta = caminho_backup.iterdir()   #iterdir retorna a lista de shoppings existentes
-#print(shoppings_existentes_napasta)
+# iterdir retorna a lista de shoppings existentes
+shoppings_existentes_napasta = caminho_backup.iterdir()
+# print(shoppings_existentes_napasta)
 
 lista_shoppings = []
 for shopping in shoppings_existentes_napasta:
     lista_shoppings.append(shopping.name)
-#print(lista_shoppings)
+# print(lista_shoppings)
 
 for shopping in dicionario_das_lojas:
     shopping_nome = shopping.strip()
@@ -45,21 +46,31 @@ for shopping in dicionario_das_lojas:
     if shopping not in lista_shoppings and not nova_pasta.exists():
         nova_pasta.mkdir()
 
-    #Cria o local do arquivo para salvar o backup diario
-    #local_arquivo_salvo = "C:\Users\Home\...16_02_NomeLoja.xlsx"
+    # Cria o local do arquivo para salvar o backup diario
+    # local_arquivo_salvo = "C:\Users\Home\...16_02_NomeLoja.xlsx"
 
-
-    nome_shopping = "{}_{}_{}.xlsx".format(data_atualizada_indicador().month, data_atualizada_indicador().day, shopping)
+    nome_shopping = "{}_{}_{}.xlsx".format(
+        data_atualizada_indicador().month, data_atualizada_indicador().day, shopping)
     local_arquivo_salvo = caminho_backup / shopping / nome_shopping
 
     dicionario_das_lojas[shopping].to_excel(local_arquivo_salvo, index=False)
 
-    #calcular faturamento de cada shopping
+    # calcular faturamento de cada shopping
 
 loja = 'Shopping Center Leste Aricanduva'
 vendas_shopping = dicionario_das_lojas[loja]
-vendas_shopping_dia = vendas_shopping.loc[vendas_shopping['Data']== dia_indicador,:]
+vendas_shopping_dia = vendas_shopping.loc[vendas_shopping['Data']
+                                          == dia_indicador, :]
 faturamento_ano = vendas_shopping['Valor Final'].sum()
 faturamento_dia = vendas_shopping_dia['Valor Final'].sum()
 
+diversidade_vendida_ano = len(vendas_shopping['Produtos'].unique())
+print(diversidade_vendida_ano)
+diversidade_vendida_dia = len(vendas_shopping_dia['Produtos'].unique())
+
+vendas_totais_ano = vendas_shopping.groupy('Código Venda')['Valor Final'].sum()
+ticket_medio_ano = vendas_totais_ano.mean()
+
+vendas_totais_dia = vendas_shopping_dia.groupy['Código Venda'].sum()
+ticket_medio_dia = vendas_totais_dia['Valor Final'].mean()
 
