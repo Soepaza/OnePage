@@ -7,70 +7,48 @@ lojas = pd.read_csv(r'Bases de Dados\Lojas.csv', encoding='latin1', sep=';')
 vendas = pd.read_excel(r'Bases de Dados\Vendas.xlsx')
 
 vendas = vendas.merge(lojas, on='ID Loja')
-# print(vendas)
 
-# Criando um arquivo separado para cada shopping existente na base de dados.
-dicionario_das_lojas = {}
-for arquivo_separado in lojas['Loja']:
-    dicionario_das_lojas[arquivo_separado] = vendas.loc[vendas['Loja']
-                                                        == arquivo_separado, :]
+dicionario_lojas = {}
+for loja in lojas['Loja']:
+    dicionario_lojas[loja] = vendas.loc[vendas['Loja']==loja, :]
 
-# print(dicionario_das_lojas['Shopping Morumbi'])
+dia_indicador = vendas['Data'].max()
 
-    # atualizar a data todo dia, para enviar o indicador diario no email.
-
-
-def data_atualizada_indicador():
-    dia_enviar_no_email = vendas['Data'].max()
-    return dia_enviar_no_email
-
-
-# print(data_atualizada_indicador())
-
-    # criar a pasta que vai receber os backups das lojas dentro do programa.
-dia_indicador = vendas['Loja'].min()
 caminho_backup = pathlib.Path(r'Backup Arquivos Lojas')
 
-# iterdir retorna a lista de shoppings existentes
-shoppings_existentes_napasta = caminho_backup.iterdir()
-# print(shoppings_existentes_napasta)
+arquivos_pasta_backup = caminho_backup.iterdir()
+lista_nomes_backup = [arquivo.name.strip() for arquivo in arquivos_pasta_backup]
 
-lista_shoppings = []
-for shopping in shoppings_existentes_napasta:
-    lista_shoppings.append(shopping.name)
-# print(lista_shoppings)
+for loja in dicionario_lojas:
+    loja_formatada = loja.strip()
 
-for shopping in dicionario_das_lojas:
-    shopping_nome = shopping.strip()
-    nova_pasta = caminho_backup / shopping_nome
-    if shopping not in lista_shoppings and not nova_pasta.exists():
+    if loja_formatada not in lista_nomes_backup:
+        nova_pasta = caminho_backup / loja_formatada
         nova_pasta.mkdir()
 
-    # Cria o local do arquivo para salvar o backup diario
-    # local_arquivo_salvo = "C:\Users\Home\...16_02_NomeLoja.xlsx"
+    # Salvar dentro da pasta
+    nome_arquivo = '{}_{}_{}.xlsx'.format(dia_indicador.month, dia_indicador.day, loja_formatada)
+    local_arquivo = caminho_backup / loja_formatada / nome_arquivo
+    dicionario_lojas[loja].to_excel(local_arquivo)
 
-    nome_shopping = "{}_{}_{}.xlsx".format(
-        data_atualizada_indicador().month, data_atualizada_indicador().day, shopping)
-    local_arquivo_salvo = caminho_backup / shopping / nome_shopping
+    #mandar o arquivo para o shopping
+arquivo_shopp = 'Norte Shopping'
+vendas_do_shopping = dicionario_lojas[arquivo_shopp]
+vendas_do_shopping_dia = vendas_do_shopping.loc[vendas_do_shopping['Data'] == dia_indicador,:]
 
-    dicionario_das_lojas[shopping].to_excel(local_arquivo_salvo, index=False)
+faturamento_total = vendas_do_shopping['Valor Final'].sum()
+print(faturamento_total)
 
-    # calcular faturamento de cada shopping
+faturamento_total_dia = vendas_do_shopping_dia['Valor Final'].sum()
+print(faturamento_total_dia)
 
-loja = 'Shopping Center Leste Aricanduva'
-vendas_shopping = dicionario_das_lojas[loja]
-vendas_shopping_dia = vendas_shopping.loc[vendas_shopping['Data']
-                                          == dia_indicador, :]
-faturamento_ano = vendas_shopping['Valor Final'].sum()
-faturamento_dia = vendas_shopping_dia['Valor Final'].sum()
+diversidade_produtos_ano =len(vendas_do_shopping['Produto'].unique())
+diversidade_produtos_dia = len(vendas_do_shopping_dia['Produto'].unique())
 
-diversidade_vendida_ano = len(vendas_shopping['Produtos'].unique())
-print(diversidade_vendida_ano)
-diversidade_vendida_dia = len(vendas_shopping_dia['Produtos'].unique())
 
-vendas_totais_ano = vendas_shopping.groupy('Código Venda')['Valor Final'].sum()
-ticket_medio_ano = vendas_totais_ano.mean()
+    #calcular ticket medio
+valor_venda = vendas_do_shopping.groupby['Código Venda'].sum()
+ticket_medio_ano = valor_venda['Valor Final'].mean()
 
-vendas_totais_dia = vendas_shopping_dia.groupy['Código Venda'].sum()
-ticket_medio_dia = vendas_totais_dia['Valor Final'].mean()
-
+valor_venda_dia = vendas_do_shopping_dia.groupby['Código Venda'].sum()
+ticket_medio_dia = vendas_loja_dia['Valor Final'].mean()
