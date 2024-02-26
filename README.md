@@ -14,7 +14,7 @@ Python Instalado:
 Se você ainda não possui o Python instalado, faça o download e a instalação a partir do site oficial do Python.
 
 Visual Studio Code (ou algum editor de preferência):
-instalar um editor de código para rodar o programa o arquivo executável
+instalar um editor de código para rodar o programa.
 
 Outlook:
 outlook instalado no computador com alguma conta conectada para o envio automático dos emails.
@@ -24,7 +24,7 @@ outlook instalado no computador com alguma conta conectada para o envio automát
 Clonar o repositório com os arquivos necessários para executar o programa:
 
 ```
-No terminal do editor de código escolhido utilize:
+No terminal do VSCode use:
 
 git clone https://github.com/Soepaza/OnePage.git
 ```
