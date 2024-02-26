@@ -1,4 +1,4 @@
-# Título do projeto
+# Automatização de Análise de Vendas com Criação de OnePage Interativa
 
 Desenvolvi um código em Python para criar uma OnePage interativa a partir de uma base de dados de vendas. O script calcula indicadores-chave, como faturamento, diversidade de produtos e ticket médio, comparando-os com metas predefinidas. Em seguida, o código automatiza o envio dos resultados para os emails cadastrados como gerentes e cria ranking de resultados enviados para diretoria, permitindo uma visualização fácil e rápida tudo de forma automatizada.
 
