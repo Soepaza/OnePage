@@ -1,3 +1,0 @@
-subject.html
-visaoprojeto.png
-onepageversao1.py
