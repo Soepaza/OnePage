@@ -27,12 +27,21 @@ Clonar o repositório com os arquivos necessários para executar o programa:
 No terminal do VSCode use:
 
 git clone https://github.com/Soepaza/OnePage.git
+
+Verifique se todos os arquivos da Bases de dados estão baixados corretamente em formato excel.
+
 ```
 
 Abra o arquivo onepagefinal.py:
 
 ```
 Com o arquivo aberto e o python instalado, basta clicar em Run e aguardar a execução.
+```
+
+Para rodar o código do zero:
+
+```
+Basta entrar na pasta Backup Arquivo Lojas e excluir todos os arquivos ja existentes e rodar o programa.
 ```
 
 ## 🛠️ Construído com
