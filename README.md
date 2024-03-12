@@ -18,11 +18,6 @@ instalar um editor de código para rodar o programa.
 
 Outlook:
 outlook instalado no computador com alguma conta conectada para o envio automático dos emails.
-
-No terminal do VSCODE instale as bibliotecas com os comandos:
-pip install pandas
-pip install pathlib
-pip install pywin32
 ```
 
 ### 🔧 Instalação
@@ -31,6 +26,10 @@ Clonar o repositório com os arquivos necessários para executar o programa:
 ```
 No terminal do VSCode, execute o seguinte comando para clonar o repositório:
 git clone https://github.com/Soepaza/OnePage.git
+
+
+De o comando para instalar as bibliotecas necessárias:
+pip install -r requirements.txt
 
 Verifique se todos os arquivos da Bases de dados estão baixados corretamente em formato excel.
 
@@ -42,7 +41,9 @@ Para abrir o arquivo:
 Para abrir o arquivo digite no terminal:
 
 code onepagefinal.py
-Clique em Run no menu superior a direita.
+
+use para rodar o código:
+python onepagefinal.py
 
 
 ```
@@ -55,10 +56,9 @@ Basta entrar na pasta Backup Arquivo Lojas e excluir todos os arquivos ja existe
 
 ## 🛠️ Construído com
 
-Mencione as ferramentas que você usou para criar seu projeto
+🐍 [Python](https://www.python.org/) - Linguagem usada para desenvolvimento do código
 
-* [Python](https://www.python.org/) - Linguagem usada para desenvolvimento do código
-* [HTML](https://developer.mozilla.org/pt-BR/docs/Web/HTML) - Linguagem de marcação utilizada para criar o corpo dos emails
+🌐 [HTML](https://developer.mozilla.org/pt-BR/docs/Web/HTML) - Linguagem de marcação utilizada para criar o corpo dos emails
 
 ## 📌 Versão
 
